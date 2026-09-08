@@ -1,0 +1,67 @@
+# ---- Maven ----
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ---- Compiled class files ----
+*.class
+
+# ---- IDE: IntelliJ ----
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ---- IDE: Eclipse ----
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# ---- IDE: VS Code ----
+.vscode/
+
+# ---- IDE: NetBeans ----
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ---- Spring Boot ----
+*.log
+spring-boot-*.log
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- Environment / secrets ----
+# Never commit real DB credentials or admin passwords.
+# Prefer environment variables or a local, gitignored override file
+# instead of hardcoding secrets in application.properties.
+application-local.properties
+application-secrets.properties
+*.env
+.env
+
+# ---- Packaged artifacts ----
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+
+# ---- Postman ----
+# Uncomment if you don't want to version your local Postman environment
+# (collection itself is fine to commit, environment files often hold secrets)
+# *.postman_environment.json
