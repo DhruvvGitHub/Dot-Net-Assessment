@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
 import Register from './pages/Register';
 import Status from './pages/Status';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -17,7 +16,6 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/status" element={<Status />} />
           <Route path="/status/:id" element={<Status />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route
             path="/admin/dashboard"
