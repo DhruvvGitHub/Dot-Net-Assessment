@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,6 +11,8 @@ import {
   RiCalendarLine,
   RiCheckboxCircleLine,
   RiCustomerService2Line,
+  RiSearchLine,
+  RiShieldUserLine,
 } from '@remixicon/react';
 import { registerApplicant } from '../api/client';
 
@@ -34,10 +37,51 @@ const signupSchema = z.object({
   email: z.string().trim().min(1, "Email cannot be empty"),
 });
 
+const FIELD_KEYS = ['name', 'age', 'aadhar', 'mobile', 'email'];
+
+function applyServerErrors(data, setError, setFormError) {
+  const errorsMap = data?.errors;
+  let mapped = false;
+
+  if (errorsMap && typeof errorsMap === 'object') {
+    Object.entries(errorsMap).forEach(([field, message]) => {
+      const key = field === 'aadharNumber' ? 'aadhar' : field;
+      if (FIELD_KEYS.includes(key)) {
+        setError(key, { type: 'server', message: String(message) });
+        mapped = true;
+      }
+    });
+  }
+
+  const message = data?.message || '';
+  const lower = message.toLowerCase();
+
+  if (message) {
+    if (lower.includes('email')) {
+      setError('email', { type: 'server', message });
+      mapped = true;
+    } else if (lower.includes('aadhar') || lower.includes('aadhaar')) {
+      setError('aadhar', { type: 'server', message });
+      mapped = true;
+    } else if (lower.includes('mobile') || lower.includes('phone')) {
+      setError('mobile', { type: 'server', message });
+      mapped = true;
+    }
+  }
+
+  setFormError(
+    message ||
+      (mapped
+        ? 'Please correct the highlighted fields.'
+        : 'A registration with these details already exists.')
+  );
+}
+
 const RegistrationForm = ({ onSuccess }) => {
+  const navigate = useNavigate();
   const [formError, setFormError] = useState('');
-  
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+
+  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(signupSchema),
     mode: "onSubmit",
   });
@@ -67,8 +111,8 @@ const RegistrationForm = ({ onSuccess }) => {
         return;
       }
 
-      if (status === 409) {
-        setFormError(data?.message || 'A registration with these details already exists.');
+      if (status === 409 || status === 400) {
+        applyServerErrors(data, setError, setFormError);
         return;
       }
 
@@ -197,7 +241,7 @@ const RegistrationForm = ({ onSuccess }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full bg-gradient-to-r from-orange-600 to-amber-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all mb-6 shadow-lg shadow-orange-900/25 ${
+            className={`w-full bg-gradient-to-r from-orange-600 to-amber-700 text-white font-semibold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all mb-4 shadow-lg shadow-orange-900/25 ${
               isSubmitting
                 ? 'opacity-70 cursor-not-allowed'
                 : 'cursor-pointer hover:from-orange-500 hover:to-amber-600 active:scale-[0.98]'

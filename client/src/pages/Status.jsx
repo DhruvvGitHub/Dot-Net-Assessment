@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getRegistrationStatus } from '../api/client';
+import Navbar from '../components/Navbar';
 
 const statusStyles = {
   PENDING: 'bg-amber-100 text-amber-800 border-amber-200',
@@ -71,17 +72,7 @@ export default function Status() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
-      <header className="bg-slate-900 text-white border-b border-slate-700">
-        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs tracking-[0.16em] uppercase text-slate-300">Government Portal</p>
-            <h1 className="text-lg font-semibold">Registration Status</h1>
-          </div>
-          <Link to="/register" className="text-sm text-slate-200 hover:text-white underline-offset-2 hover:underline">
-            New registration
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="max-w-xl mx-auto px-4 py-8 sm:py-12">
         <div className="bg-white border border-slate-200 shadow-sm rounded-lg p-6 sm:p-8">

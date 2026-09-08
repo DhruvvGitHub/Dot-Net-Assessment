@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
+import Navbar from '../../components/Navbar';
 import {
   approveRegistration,
   getPendingRegistrations,
@@ -53,7 +54,7 @@ export default function AdminDashboard() {
 
   const handleUnauthorized = useCallback(() => {
     logout('Invalid credentials');
-    navigate('/admin', { replace: true });
+    navigate('/authadmin', { replace: true });
   }, [logout, navigate]);
 
   const loadRows = useCallback(async () => {
@@ -194,29 +195,20 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
-      <header className="bg-slate-900 text-white border-b border-slate-700">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-xs tracking-[0.16em] uppercase text-slate-300">Admin Portal</p>
-            <h1 className="text-lg font-semibold">Registration Review Dashboard</h1>
-          </div>
-          <div className="flex items-center gap-3 text-sm">
-            <Link to="/register" className="text-slate-200 hover:text-white underline-offset-2 hover:underline">
-              Public form
-            </Link>
-            <button
-              type="button"
-              onClick={() => {
-                logout();
-                navigate('/admin', { replace: true });
-              }}
-              className="px-3 py-1.5 rounded border border-slate-500 text-slate-100 hover:bg-slate-800"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
-      </header>
+      <Navbar
+        actions={
+          <button
+            type="button"
+            onClick={() => {
+              logout();
+              navigate('/authadmin', { replace: true });
+            }}
+            className="ml-1 px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white/90 border border-white/20 hover:bg-white/10 transition-all"
+          >
+            Sign out
+          </button>
+        }
+      />
 
       <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">

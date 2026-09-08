@@ -16,9 +16,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/status" element={<Status />} />
           <Route path="/status/:id" element={<Status />} />
-          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/authadmin" element={<AdminLogin />} />
           <Route
-            path="/admin/dashboard"
+            path="/authadmin/dashboard"
             element={
               <ProtectedAdminRoute>
                 <AdminDashboard />

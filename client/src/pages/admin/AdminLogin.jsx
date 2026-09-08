@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { getPendingRegistrations } from '../../api/client';
+import Navbar from '../../components/Navbar';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function AdminLogin() {
   const [localError, setLocalError] = useState('');
 
   if (isAuthenticated) {
-    return <Navigate to="/admin/dashboard" replace />;
+    return <Navigate to="/authadmin/dashboard" replace />;
   }
 
   const onSubmit = async (e) => {
@@ -43,7 +44,7 @@ export default function AdminLogin() {
       }
 
       login(creds.username, creds.password);
-      navigate('/admin/dashboard', { replace: true });
+      navigate('/authadmin/dashboard', { replace: true });
     } catch {
       setLocalError('Unable to reach the server. Please ensure the API is running.');
     } finally {
@@ -55,17 +56,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
-      <header className="bg-slate-900 text-white border-b border-slate-700">
-        <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <p className="text-xs tracking-[0.16em] uppercase text-slate-300">Admin Portal</p>
-            <h1 className="text-lg font-semibold">Land Record Review</h1>
-          </div>
-          <Link to="/register" className="text-sm text-slate-200 hover:text-white underline-offset-2 hover:underline">
-            Public register
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="max-w-md mx-auto px-4 py-12">
         <div className="bg-white border border-slate-200 shadow-sm rounded-lg p-6 sm:p-8">

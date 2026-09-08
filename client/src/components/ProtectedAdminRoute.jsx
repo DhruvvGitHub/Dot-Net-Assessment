@@ -6,7 +6,7 @@ export default function ProtectedAdminRoute({ children }) {
   const { isAuthenticated } = useAdminAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/authadmin" replace />;
   }
 
   return children;

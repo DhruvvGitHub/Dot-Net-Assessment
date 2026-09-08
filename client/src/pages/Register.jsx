@@ -3,6 +3,7 @@ import HeroSection from '../components/HeroSection';
 import RegistrationForm from '../components/RegistrationForm';
 import RegistrationSuccess from '../components/RegistrationSuccess';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 const Register = () => {
   const [successData, setSuccessData] = useState(null);
@@ -21,7 +22,9 @@ const Register = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-orange-950/45 via-transparent to-emerald-950/25" />
       </div>
 
-      <div className="relative z-10 flex-1 flex flex-col lg:flex-row w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+      <Navbar variant="overlay" />
+
+      <div className="relative z-10 flex-1 flex flex-col lg:flex-row w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
         <HeroSection />
 
         {successData ? (
